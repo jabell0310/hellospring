@@ -5,8 +5,14 @@
 </head>
 <body>
     <h1>The Game award</h1>
-    <h2>d</h2>
-    <p th:text="."></p>
-    <p th:text="${articles.content}"/>
+    <tr th:each="article: ${articles}">
+        <td>
+            <h2 th:text="${article.title}"></h2>
+            <span th:text="${article.author}"></span>
+            <span>|</span>
+            <span th:text="${article.date}"></span>
+            <p th:text="${article.content}"></p>
+        </td>
+    </tr>
 </body>
 </html>

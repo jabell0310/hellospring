@@ -5,6 +5,7 @@ import com.example.hellospring.model.Board;
 import com.example.hellospring.model.Member;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Community {
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

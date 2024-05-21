@@ -39,12 +39,12 @@ public class ArticleRepository {
                 .orElse(new Article(null,null,null, "",null));
     }
 
-    public void updateContent(String id, Article article) {
+    public void updateContent(String id, String content) {
         articles.stream()
                 .filter(Community -> Community.getId().equals(Integer.parseInt(id)))
                 .findAny()
                 .orElse(new Article(null,null,null,"",null))
-                .setContents(article.getContents());
+                .setContents(content);
 
     }
 

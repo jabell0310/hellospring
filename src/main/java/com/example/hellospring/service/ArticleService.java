@@ -29,16 +29,18 @@ public class ArticleService {
     ArrayList<Community> communityDTOs = new ArrayList<>();
 
     public Community createCommunity(Community community) {
-        getAllCommunities();
-        Board board = new Board(community.getId(), community.getTitle());
-        Member member = new Member(null, community.getAuthor(), community.getAuthor().toLowerCase(Locale.ROOT) +"@gmail.com", "");
-        Article article = new Article(community.getId(), null ,community.getId(), community.getContent(), LocalDateTime.now());
+        int memberId = memberRepository.findIdByName(community.getAuthor());
+        Integer newId = communityDTOs.size() + 1;
+        Board board = new Board(newId, community.getTitle());
+        Member member = new Member(memberId, community.getAuthor(), community.getAuthor().toLowerCase(Locale.ROOT) +"@gmail.com", "");
+        Article article = new Article(newId, memberId,newId, community.getContent(), LocalDateTime.now());
         Community newCommunity = new Community(articleRepository.create(article),memberRepository.create(member),boardRepository.create(board));
         communityDTOs.add(newCommunity);
         return newCommunity;
     }
 
     public ArrayList<Community> getAllCommunities() {
+        communityDTOs.clear();
         ArrayList<Article> articles = articleRepository.findAll();
 
 
@@ -60,12 +62,12 @@ public class ArticleService {
     }
 
     public Community updateCommunity(String id, Community community) {
+        getAllCommunities();
         Article article = articleRepository.findById(id);
-        Member member = memberRepository.findById(String.valueOf(article.getUserId()));
-        Board board = boardRepository.findById(String.valueOf(article.getBoardId()));
-        articleRepository.updateContent(id, article);
-        memberRepository.updateName(String.valueOf(article.getUserId()), member);
-        boardRepository.updateTitle(String.valueOf(article.getBoardId()),board);
+        articleRepository.updateContent(id, community.getContent());
+        memberRepository.updateName(String.valueOf(article.getUserId()), community.getAuthor());
+        boardRepository.updateTitle(id, community.getTitle());
+        communityDTOs.set(Integer.parseInt(id)-1, community);
         return community;
     }
 

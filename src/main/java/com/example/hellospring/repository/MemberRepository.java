@@ -1,10 +1,10 @@
 package com.example.hellospring.repository;
 
-import com.example.hellospring.model.Board;
 import com.example.hellospring.model.Member;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 @Repository
 public class MemberRepository {
@@ -36,12 +36,23 @@ public class MemberRepository {
                 .orElse(new Member(null,"","",""));
     }
 
-    public void updateName(String id, Member member) {
+    public int findIdByName(String name) {
+        for (Member member : members) {
+            if (member.getName().equals(name)) {
+                return member.getId();
+            }
+        }
+        int newId = members.size() + 1;
+        members.add(new Member(newId, name, name.toLowerCase(Locale.ROOT) + "@gmail.com", ""));
+        return newId;
+    }
+
+    public void updateName(String id, String name) {
         members.stream()
                 .filter(Community -> Community.getId().equals(Integer.parseInt(id)))
                 .findAny()
                 .orElse(new Member(null,"","",""))
-                .setName(member.getName());
+                .setName(name);
 
     }
 

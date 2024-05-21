@@ -37,12 +37,12 @@ public class BoardRepository {
                 .orElse(new Board(null, ""));
     }
 
-    public void updateTitle(String id, Board board) {
+    public void updateTitle(String id, String title) {
         boards.stream()
                 .filter(Community -> Community.getId().equals(Integer.parseInt(id)))
                 .findAny()
                 .orElse(new Board(null, ""))
-                .setTitle(board.getTitle());
+                .setTitle(title);
 
     }
 
