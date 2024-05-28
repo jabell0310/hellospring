@@ -11,6 +11,8 @@ public interface MemberDao {
 
     public Member getById(int id);
 
+    public Member getIdByName(String name);
+
     public Member updateName(Member member);
 
     public void deleteById(int id);
