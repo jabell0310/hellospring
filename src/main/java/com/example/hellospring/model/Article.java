@@ -1,28 +1,44 @@
 package com.example.hellospring.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
+
+@Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Article {
-    private Integer id;
-    private Integer userId;
-    private Integer boardId;
-    private String title;
-    private String contents;
-    private LocalDateTime createTime;
-    private LocalDateTime editTime = LocalDateTime.now();
-    public Article(Integer id, Integer userId, Integer boardId, String contents, LocalDateTime createTime) {
-        this.id = id;
-        this.userId = userId;
-        this.boardId = boardId;
-        this.contents = contents;
-        this.createTime = createTime;
-    }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @Column
+    private Integer author_id;
+
+    @Column
+    private Integer board_id;
+
+    @Column
+    private String title;
+
+    @Column
+    private String content;
+
+    @Column
+    private Timestamp created_date;
+
+    @Column
+    private Timestamp modified_date;
+    
 
 }

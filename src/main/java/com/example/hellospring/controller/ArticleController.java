@@ -1,11 +1,12 @@
 package com.example.hellospring.controller;
 
-import com.example.hellospring.dto.Community;
+
+import com.example.hellospring.model.Article;
 import com.example.hellospring.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -14,27 +15,27 @@ public class ArticleController {
     ArticleService articleService;
 
     @PostMapping("/articles")
-    public Community createArticle(@RequestBody Community community) {
-        return articleService.createCommunity(community);
+    public Article createArticle(@RequestBody Article article) {
+        return articleService.createArticle(article);
     }
+
 
     @GetMapping("/articles")
-    public ArrayList<Community> getAllArticles() {
-        return articleService.getAllCommunities();
+    public List<Article> getAllBoardArticles(@RequestParam(name = "boardId", required = false) Integer board_id) {
+        return articleService.getAllBoardArticles(board_id);
     }
-
     @GetMapping("/articles/{id}")
-    public Community getArticle(@PathVariable String id) {
-        return articleService.getCommunity(id);
+    public Article getArticle(@PathVariable String id) {
+        return articleService.getArticle(id);
     }
 
     @PutMapping("/articles/{id}")
-    public Community updateArticle(@PathVariable String id,@RequestBody Community community) {
-        return articleService.updateCommunity(id, community);
+    public Article updateArticle(@PathVariable String id,@RequestBody Article article) {
+        return articleService.updateArticle(article, id);
     }
 
     @DeleteMapping("/articles/{id}")
     public void deleteArticle(@PathVariable String id) {
-        articleService.deleteCommunity(id);
+        articleService.deleteArticle(id);
     }
 }

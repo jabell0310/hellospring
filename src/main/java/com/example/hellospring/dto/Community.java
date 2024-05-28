@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -20,14 +21,14 @@ public class Community {
     private Integer id;
     private String title;
     private String author;
-    private LocalDateTime date;
+    private Timestamp date;
     private String content;
 
     public Community(Article article, Member member, Board board) {
         this.id = article.getId();
         this.title = board.getTitle();
         this.author = member.getName();
-        this.date = article.getCreateTime();
-        this.content = article.getContents();
+        this.date = article.getCreated_date();
+        this.content = article.getContent();
     }
 }
